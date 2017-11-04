@@ -39,7 +39,14 @@ function generate()
 
 function add()
 {
-	id("data").innerHTML+='<tr><td><input class="total" size="10" /></td><td><input class="qmiles" size="10" /></td><td><input class="string" size="50" /></td><td><input class="date" size="10" /></td></tr>';
+	//id("data").innerHTML+='<tr><td><input class="total" size="10" /></td><td><input class="qmiles" size="10" /></td><td><input class="string" size="50" /></td><td><input class="date" size="10" /></td></tr>';
+
+var tr = document.createElement('tr')
+
+tr.innerHTML = '<td><input class="total" size="10" /></td><td><input class="qmiles" size="10" /></td><td><input class="string" size="50" /></td><td><input class="date" size="10" /></td>';
+id("data").appendChild(tr)
+
+
 }
 
 
