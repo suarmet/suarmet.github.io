@@ -4,13 +4,8 @@
 <meta charset="utf-8" />
 </head>
 <body>
-<script>
-function id(e){return document.getElementById(e);}
-function cl(e){return document.getElementsByClassName(e);}
-
-function generate()
-{
-	var html=`            
+<script src="converter.js"></script>
+<div id="html" style="display:none">            
     <li>
         <div class="value" style="text-align: right; width: 45%;">
             <strong>
@@ -30,34 +25,14 @@ function generate()
             </div>
         </div>
         <div style="clear: both"> </div>
-    </li>`;
-	
-	
-	
-}
-
-
-function add()
-{
-	//id("data").innerHTML+='<tr><td><input class="total" size="10" /></td><td><input class="qmiles" size="10" /></td><td><input class="string" size="50" /></td><td><input class="date" size="10" /></td></tr>';
-
-var tr = document.createElement('tr')
-
-tr.innerHTML = '<td><input class="total" size="10" /></td><td><input class="qmiles" size="10" /></td><td><input class="string" size="50" /></td><td><input class="date" size="10" /></td>';
-id("data").appendChild(tr)
-
-
-}
-
-
-</script>
+    </li></div>
 <table id="data" border="1">
 <tr><td>Total miles</td><td>Qmiles</td><td>String AZ 786 X XSSCE MXP NRT ALITALIA</td><td>Date</td></tr>
 <tr><td><input class="total" size="10" /></td><td><input class="qmiles" size="10" /></td><td><input class="string" size="50" /></td><td><input class="date" size="10" /></td></tr>
 
 </table>
 <button onclick="add()">Add</button>
-<button onclick="generate">Generate</button>
+<button onclick="generate()">Generate</button>
 <hr />
 <textarea cols="80" rows="20" id="text">Код отсюда сохраняешь в data.html и отправляешь мне</textarea>
 </body>          
