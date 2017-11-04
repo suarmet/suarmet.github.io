@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+</head>
+<body>
+<script>
+function id(e){return document.getElementById(e);}
+function cl(e){return document.getElementsByClassName(e);}
+
+function generate()
+{
+	var html=`            
+    <li>
+        <div class="value" style="text-align: right; width: 45%;">
+            <strong>
+                2279
+                <br>
+                    <small>Qualifying miles 1519</small>
+            </strong>
+        </div>
+
+        <div class="descr" style="width: 55%;">
+            <div class="descr1">
+                AZ 786 X XSSCE MXP NRT ALITALIA 
+                <small>
+                    <br>
+                    06.10.2017
+                </small>
+            </div>
+        </div>
+        <div style="clear: both"> </div>
+    </li>`;
+	
+	
+	
+}
+
+
+function add()
+{
+	
+}
+
+
+</script>
+<table id="data" border="1">
+<tr><td>Total miles</td><td>Qmiles</td><td>String AZ 786 X XSSCE MXP NRT ALITALIA</td><td>Date</td></tr>
+<tr><td><input class="total" size="10" /></td><td><input class="qmiles" size="10" /></td><td><input class="string" size="50" /></td><td><input class="date" size="10" /></td></tr>
+
+</table>
+<button onclick="add()">Add</button>
+<button onclick="generate">Generate</button>
+<hr />
+<textarea cols="80" rows="20" id="text">Код отсюда сохраняешь в data.html и отправляешь мне</textarea>
+</body>          
+</html>
