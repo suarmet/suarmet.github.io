@@ -1,0 +1,263 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+<head>
+    <title>Member card | Aeroflot Bonus Account | Aeroflot</title>
+    <meta name="viewport" content="user-scalable=no,width=device-width,minimum-scale=1.0,maximum-scale=1.0"/>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+    <meta name="format-detection" content="telephone=no"/>
+    <script src="https://m.aeroflot.ru/personal/pda/static/mobile/j/jquery-1.6.4.min.js"></script>
+    <script src="https://m.aeroflot.ru/personal/pda/static/mobile/j/formfields.js?a=1"></script>
+    
+    <link type="text/css" rel="stylesheet" href="https://m.aeroflot.ru/personal/pda/static/mobile/s/reset.css" charset="UTF-8"/>
+    <link type="text/css" rel="stylesheet" href="https://m.aeroflot.ru/personal/pda/static/mobile/s/main.css" charset="UTF-8"/>
+    <link type="text/css" rel="stylesheet" href="https://m.aeroflot.ru/personal/pda/static/mobile/s/css3.css" charset="UTF-8"/>
+</head>
+<body>
+<style type="text/css">
+    html, body {
+        margin: 0;
+        min-width: 0;
+    }
+
+    #card {
+        position: relative;
+        border-width: 0;
+    }
+
+    .rotate {
+        -webkit-transform: rotate(90deg);
+        -moz-transform: rotate(90deg);
+        -ms-transform: rotate(90deg);
+        -o-transform: rotate(90deg);
+        transform: rotate(90deg);
+    }
+
+    #card img {
+        width: 100%;
+        height: auto;
+    }
+
+    #card div.card_info {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        border-width: 0;
+    }
+
+    #card table.text {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        border-width: 0;
+    }
+
+    #card table.text td {
+        padding: 0 0 0 7%;
+        font-weight: lighter;
+        color: #fff;
+    }
+
+    #card table.text tr.top {
+        height: 50%;
+    }
+
+    #card table.text tr.bottom {
+        height: 25%;
+    }
+
+    #card table.text tr.person_number {
+        height: 16%;
+        font-size: 4vw;
+    }
+
+    #card table.text tr.person_name {
+        font-size: 2.5vw;
+        line-height: 1.1;
+    }
+
+    #buttons {
+        width: 100%;
+        position: fixed;
+        display: table;
+    }
+
+    #buttons > .button {
+        display: table-cell;
+        vertical-align: middle;
+    }
+
+    #buttons > .button > * {
+        display: block;
+        box-sizing: border-box;
+        width: 72px;
+        height: 52px;
+        margin: 0 auto;
+        cursor: pointer;
+        background-size: 100%;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    #buttons > .download > * {
+        background-image: url(https://m.aeroflot.ru/personal/static/images/card/download_btn.png);
+    }
+
+    #buttons > .activate > * {
+        background-image: url(https://m.aeroflot.ru/personal/static/images/card/activate_btn.png);
+    }
+</style>
+<!--[if (IE 7)&(IE 8)]>
+<style type="text/css">
+    #card, #card div.text {
+        filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=1);
+        z-index:inherit;
+        zoom:1;
+    }
+
+    #card {
+        margin: 3% auto 35% 20%;
+    }
+</style>
+<![endif]-->
+<div id="card" class="rotate" style="display: none;">
+    <img id="img_card" border="0" src="" />
+    <div class="card_info">
+        <table border="0" cellpadding="0" class="text">
+            <tr class="top">
+                <td>&nbsp;</td>
+            </tr>
+            <tr id="person_number" class="person_number">
+                <td id="member_loyalty_id"></td>
+            </tr>
+            <tr id="person_name" class="person_name">
+                <td id="user_display_name"></td>
+            </tr>
+            <tr>
+                <td id="card_exp_date"></td>
+            </tr>
+        </table>
+    </div>
+</div>
+<script>
+$(function() {
+    var PADDING = 40,
+        BUTTON_MAX_WIDTH = 72,
+        BUTTON_MAX_HEIGHT = 52,
+        BUTTON_KF = 0.8,
+        NORMAL_WIDTH = 800,
+        NORMAL_HEIGHT = 400;
+
+    var $card = $('#card'),
+        $img = $('#img_card'),
+        $table = $card.children('.card_info'),
+        $buttons = $('#buttons');
+
+    function scaleFont() {
+        var width = $img.width(),
+            width2 = width / 1.59,
+            numberFontSize = Math.round(width2 / 8),
+            nameFontSize = Math.round(width2 / 13),
+            expDateFontSize = Math.round(width2 / 14),
+            $numberRow = $('#person_number'),
+            $nameRow = $('#person_name');
+
+        $numberRow.css('fontSize', numberFontSize + 'px');
+        $nameRow.css('fontSize',  nameFontSize + 'px');
+        $('#card_exp_date').css('fontSize',  expDateFontSize + 'px');
+    }
+
+    function scaleImg() {
+        var kw = Math.min($(window).width() / NORMAL_WIDTH, 1),
+            kh = Math.min($(window).height() / NORMAL_HEIGHT, 1);
+
+        var btnBlockHeight = BUTTON_MAX_HEIGHT * kh * 1.2,
+            height = $(window).height() - btnBlockHeight,
+            width = $(window).width(),
+            setHeight = height - PADDING * kh * 2,
+            setWidth = width - PADDING * kw * 2,
+            rotated = height > width;
+
+        if (rotated) {
+            $img.width(setHeight).css('height', 'auto');
+            if ($img.height() > setWidth) $img.height(setWidth).css('width', 'auto');
+            $card.addClass('rotate').css({
+                top: PADDING * kw + $card.width() / 2 - $card.height() / 2,
+                left: 0
+            });
+        } else {
+            $img.width(setWidth).css('height', 'auto');
+            if ($img.height() > setHeight) $img.height(setHeight).css('width', 'auto');
+            $card.removeClass('rotate').css({
+                top: PADDING * kh,
+                left: PADDING * kw
+            });
+        }
+
+        $table.height($img.height());
+        $table.width($img.width());
+
+        var rect = $img[0].getBoundingClientRect(),
+            btnW, btnH;
+
+        $buttons.css({
+            top: rect.bottom,
+            margin: '0 ' + rect.left + 'px',
+            width: rect.width
+        });
+
+        if (rotated) {
+            btnW = Math.min(BUTTON_MAX_WIDTH, rect.width * BUTTON_KF / 2);
+            btnH = Math.min(BUTTON_MAX_HEIGHT, btnW * BUTTON_MAX_HEIGHT / BUTTON_MAX_WIDTH);
+        } else {
+            btnH = Math.min(BUTTON_MAX_HEIGHT, btnBlockHeight * BUTTON_KF);
+            btnW = Math.min(BUTTON_MAX_WIDTH, btnH * BUTTON_MAX_WIDTH / BUTTON_MAX_HEIGHT);
+        }
+        $buttons.find('.button_image').css({ width: btnW, height: btnH });
+        $buttons.height(btnH * 1.8);
+    }
+
+    function setContent(data) {
+        var tierLevel = data['tier_level'] || 'basic',
+            loyaltyId = data['loyalty_id'] || '',
+            expiryDate = data['expiry_date'] || '',
+            userName = [data['first_name'], data['last_name']].join(' ').trim();
+
+        $img.attr('src', 'https://m.aeroflot.ru/personal/pda/static/images/' + tierLevel.toLowerCase() + '.png');
+        $('#member_loyalty_id').text(loyaltyId);
+        $('#card_exp_date').text(expiryDate);
+        $('#user_display_name').text(userName);
+    }
+
+    function resizeEvent(e) {
+        scaleImg();
+        scaleFont();
+    }
+
+    $img.load(function() {
+        $card.show();
+        $buttons.show();
+        resizeEvent();
+    });
+
+    $(window).resize(resizeEvent).trigger('resize');
+
+
+        $.ajax({
+            url: 'card_data.json',
+            dataType : 'json',
+            xhrFields: { withCredentials: true },
+            success: function(response) {
+                if (!response['isSuccess']) return;
+                setContent(response['data']);
+            }
+        });
+});
+</script>
+
+<script type="text/javascript">var _cf = _cf || []; _cf.push(['_setBm', true]);</script><script type="text/javascript" src="https://m.aeroflot.ru/_bm/async.js"></script></body>
+</html>
