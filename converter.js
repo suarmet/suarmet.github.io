@@ -4,7 +4,8 @@ function cl(e){return document.getElementsByClassName(e);}
 function generate()
 {
 	var html=id("html").innerHTML;
-	var web=id("web").innerHTML;
+	//var web=id("web").innerHTML;
+	var web='            \r\n                <tr>\r\n        <td>06.10.2017</td>\r\n        <td>ALITALIA</td>\r\n        <td>AZ 786</td>\r\n        <td>MXP</td>\r\n        <td>NRT</td>\r\n        <td>X</td>\r\n        <td>XSSCE</td>\r\n        <td>2279</td>\r\n        <td>1519</td>\r\n    </tr>\r\n ';
     var n=cl("total").length;
     var res="";
     for (var i=0;i<n;i++)
@@ -25,6 +26,7 @@ function generate()
 		
 	}
 	res+="\r\n\r\n-----------------------------------------------------------------------\r\n\r\n";
+	
     for (var i=0;i<n;i++)
     {
 		var temp=web;
