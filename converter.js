@@ -28,7 +28,7 @@ function add()
 var tr = document.createElement('tr')
 
 tr.innerHTML = '<td><input class="total" size="10" /></td><td><input class="qmiles" size="10" /></td><td><input class="string" size="50" /></td><td><input class="date" size="10" /></td>';
-id("data").appendChild(tr)
+id("data").appendChild(tr);
 
 
 }
